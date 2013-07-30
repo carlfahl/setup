@@ -4,8 +4,14 @@
 
 # Install nvm: node-version manager
 # https://github.com/creationix/nvm
+sudo apt-get update -y
+sudo apt-get upgrade -y
+sudo apt-get install -y finger
 sudo apt-get install -y git
 sudo apt-get install -y curl
+sudo apt-get install -y mysql-server mysql-client apache2 unzip
+sudo apt-get install -y python-software-properties python g++ make gmake
+
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
 
 # Load nvm and install latest production node
@@ -16,6 +22,9 @@ nvm use v0.10.12
 # Install jshint to allow checking of JS code within emacs
 # http://jshint.com/
 npm install -g jshint
+npm install -g toobusy
+npm install -g connect
+npm install -g db
 
 # Install rlwrap to provide libreadline features with node
 # See: http://nodejs.org/api/repl.html#repl_repl
