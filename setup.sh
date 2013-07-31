@@ -12,6 +12,8 @@ sudo apt-get install -y curl
 sudo apt-get install -y mysql-server mysql-client apache2 unzip
 sudo apt-get install -y python-software-properties python g++ make gmake
 
+#There are two ways to install node
+#
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
 
 # Load nvm and install latest production node
@@ -48,10 +50,19 @@ fi
 if [ -d .emacs.d/ ]; then
     mv .emacs.d .emacs.d~
 fi
-git clone https://github.com/startup-class/dotfiles.git
+git clone https://github.com/carlfahl/dotfiles.git
 ln -sb dotfiles/.screenrc .
 ln -sb dotfiles/.bash_profile .
 ln -sb dotfiles/.bashrc .
 ln -sb dotfiles/.bashrc_custom .
 ln -sf dotfiles/.emacs.d .
+
+sudo iptables -I INPUT -i lo -j ACCEPT
+sudo iptables -A INPUT -m conntrack --ctstate ESTABLISHED,RELATED -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport ssh -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 80 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 8124 -j ACCEPT
+sudo iptables -A INPUT -p tcp --dport 3306 -j ACCEPT
+sudo iptables -A INPUT -j DROP
+sudo iptables -I INPUT 5 -m limit --limit 5/min -j LOG --log-prefix "iptables denied: " --log-level 7
 
